@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Lecture_1
+  ai:
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          model: Gemini-2.5-flash-lite
+          response:
+            mime-type: text
