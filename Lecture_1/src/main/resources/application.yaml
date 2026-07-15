@@ -1,11 +1,12 @@
 spring:
   application:
     name: Lecture_1
+
   ai:
-    google:
-      genai:
-        api-key: ${GEMINI_API_KEY}
-        chat:
-          model: Gemini-2.5-flash-lite
-          response:
-            mime-type: text
+    openai:
+      api-key: ${API_KEY}
+      base-url: "https://api.groq.com/openai/v1"
+      chat:
+        options:
+          model: llama-3.1-8b-instant
+          temperature: 0.7

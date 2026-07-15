@@ -1,8 +1,7 @@
 package com.ai.Lecture_1;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
-import lombok.Value;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,9 @@ public class FirstChatController {
     public ResponseEntity<String> getFirstChat(
             @RequestParam(value = "q" , required = true) String request
     ){
-        return ResponseEntity.ok("This is the reponse");
+
+        var response = chatClient.prompt(request).call().content();
+        return ResponseEntity.ok(response);
     }
 
 }
