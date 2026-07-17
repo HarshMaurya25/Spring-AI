@@ -10,6 +10,7 @@ import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Content;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,7 @@ public class FirstChatController {
 //    }
 
 //    Using config to load to the chat client
-    public FirstChatController(ChatClient chatClient) {
+    public FirstChatController(@Qualifier("OpenAI") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 
