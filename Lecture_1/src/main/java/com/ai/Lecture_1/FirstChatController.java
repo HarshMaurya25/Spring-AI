@@ -26,10 +26,15 @@ public class FirstChatController {
 //    }
 
 //    We can simply add the custom chat-client for the service by using the Chat Model
+//    2 method to do it First is this and second is the config method in config folder
 
-//    2 method to do it First is this
-    private FirstChatController(OpenAiChatModel chatModel){
-        this.chatClient = ChatClient.builder(chatModel).build();
+//    private FirstChatController(OpenAiChatModel chatModel){
+//        this.chatClient = ChatClient.builder(chatModel).build();
+//    }
+
+//    Using config to load to the chat client
+    public FirstChatController(ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
 
