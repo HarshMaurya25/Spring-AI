@@ -9,6 +9,7 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Content;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +21,17 @@ public class FirstChatController {
 
     private final ChatClient chatClient;
 
-    private FirstChatController(ChatClient.Builder builder){
-        this.chatClient = builder.build();
+//    private FirstChatController(ChatClient.Builder builder){
+//        this.chatClient = builder.build();
+//    }
+
+//    We can simply add the custom chat-client for the service by using the Chat Model
+
+//    2 method to do it First is this
+    private FirstChatController(OpenAiChatModel chatModel){
+        this.chatClient = ChatClient.builder(chatModel).build();
     }
+
 
     @GetMapping("/chat")
     public ResponseEntity<String> getFirstChat(

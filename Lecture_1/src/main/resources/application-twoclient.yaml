@@ -1,0 +1,5 @@
+spring:
+  ai:
+    chat:
+      client:
+        enabled: false
