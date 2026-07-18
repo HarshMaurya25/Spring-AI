@@ -68,9 +68,34 @@ public class ChatClientServiceImpl implements ChatClientService{
                 .content();
     }
 
+
+//    Resource For the Prompt --------------------------------------------------------------------
+//    It Should Store in the .st folder
+
+    @Value("src/main/resources/static/learning.st")
+    Resource promptResourse;
+
     @Override
     public String chatUsingResource(String query) {
-        return "";
+
+        PromptTemplate template = PromptTemplate
+                .builder()
+                .renderer(
+                        StTemplateRenderer.builder()
+                                .startDelimiterToken('<')
+                                .endDelimiterToken('>')
+                                .build()  //--> We can add the custom Placeholder
+                )
+                .resource(promptResourse)
+                .build();
+
+        Prompt prompt = template
+                .create(
+                        Map.of("PlaceHolder", query)
+                )
+                .augmentSystemMessage("You are expert in AI");
+
+        return chatClient.prompt(prompt).call().content();
     }
 
 
