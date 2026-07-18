@@ -1,15 +1,11 @@
-package com.ai.Lecture_1;
+package com.ai.Lecture_1.MultiModel;
 
 
 import lombok.Getter;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.content.Content;
-import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +18,14 @@ public class FirstChatController {
 
     private final ChatClient chatClient;
 
+//    Chat-client by the use ChatClient Builder
+
 //    private FirstChatController(ChatClient.Builder builder){
 //        this.chatClient = builder.build();
 //    }
 
 //    We can simply add the custom chat-client for the service by using the Chat Model
+//    Make sure spring.ai.chat.client.enabled = false
 //    2 method to do it First is this and second is the config method in config folder
 
 //    private FirstChatController(OpenAiChatModel chatModel){

@@ -2,8 +2,8 @@ spring:
   application:
     name: Lecture_1
 
-  profiles:
-    active: twoclient
+#  profiles:
+#    active: twoclient
 
   ai:
     openai:

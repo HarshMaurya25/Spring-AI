@@ -1,0 +1,84 @@
+package com.ai.Lecture_1.promptingAndParsing.service;
+
+import lombok.AllArgsConstructor;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.template.st.StTemplateRenderer;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+@Service
+public class ChatClientServiceImpl implements ChatClientService{
+
+    private  final ChatClient chatClient;
+
+    public ChatClientServiceImpl(ChatClient chatClient) {
+        this.chatClient = chatClient;
+    }
+
+//        There are mainly 3 Main type of the sending prompt
+//        1. Send prompt inside the prompt :  chatclient.prompt( <query> )
+//        2. Send by using the .user() and .system() function
+//        3. Create the object for the Prompt and pass that
+
+    @Override
+    public String chat(String query) {
+
+        return chatClient.prompt()
+                .user(query)   // ---> This handle the user query that user want to ask
+                .system("You are expert in the football")  // ---> This handle the System behaviour in response
+                .call()
+                .content();
+    }
+
+
+//    Prompt Object -------------------------------------------------------------------------------------
+//    Prompt Object include
+//        1. List of Message
+//        2. ChatOption
+
+//    Type of Message :
+//        1. USER – The user's question or request.
+//        2. SYSTEM – Instructions that define the AI's behavior.
+//        3. ASSISTANT – The AI's previous response, used to maintain conversation context.
+//        4. TOOL – The result returned from an external tool or function called by the AI.
+
+    @Override
+    public String chatWithPrompt(String query) {
+
+        PromptTemplate template = PromptTemplate
+                .builder()
+                .template("Explain this concept {placeholder}")
+                .build();
+
+
+//        Prompt prompt = new Prompt(query);
+
+        Prompt prompt = template.create(
+                Map.of("placeholder" , query))
+                .augmentSystemMessage("Behave like a teacher of AI");
+
+        return  chatClient
+                .prompt(prompt)
+                .call()
+                .content();
+    }
+
+    @Override
+    public String chatUsingResource(String query) {
+        return "";
+    }
+
+
+//    Good Prompting :
+//      1. Instructions – what to do.
+//      2. Context – background information.
+//      3. User input – the actual request.
+//      4. Output format – how the answer should look.
+
+
+}
