@@ -37,4 +37,13 @@ public class ChatClientController {
     ){
         return ResponseEntity.ok(chatClientService.chatWithPrompt(query));
     }
+
+    @GetMapping("/response/question")
+    public ResponseEntity<?> askQuestionWithStructureResponse(
+            @RequestParam(
+                    value = "ask" , required = true
+            ) String query
+    ){
+        return ResponseEntity.ok(chatClientService.chatWithStructureOutput(query));
+    }
 }

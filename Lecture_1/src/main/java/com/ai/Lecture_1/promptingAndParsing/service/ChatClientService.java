@@ -8,4 +8,6 @@ public interface ChatClientService {
 
     String chatUsingResource(String query);
 
+    String chatWithStructureOutput(String query);
+
 }

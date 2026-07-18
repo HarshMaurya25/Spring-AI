@@ -1,7 +1,9 @@
 package com.ai.Lecture_1.promptingAndParsing.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.template.st.StTemplateRenderer;
@@ -10,7 +12,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Objects;
 
+@Slf4j
 @Service
 public class ChatClientServiceImpl implements ChatClientService{
 
@@ -98,12 +102,27 @@ public class ChatClientServiceImpl implements ChatClientService{
         return chatClient.prompt(prompt).call().content();
     }
 
-
 //    Good Prompting :
 //      1. Instructions – what to do.
 //      2. Context – background information.
 //      3. User input – the actual request.
 //      4. Output format – how the answer should look.
 
+    @Override
+    public String chatWithStructureOutput(String query) {
+        ChatResponse chatResponse = chatClient
+                .prompt(query + " Under 20 words")
+                .call()
+                .chatResponse();
+
+        assert chatResponse != null;
+        log.info(chatResponse
+                .getMetadata()
+                .getUsage()
+                .toString()
+        );
+
+        return Objects.requireNonNull(chatResponse.getResult()).getOutput().getText();
+    }
 
 }
