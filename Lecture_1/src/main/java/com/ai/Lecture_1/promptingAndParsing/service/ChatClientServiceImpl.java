@@ -9,9 +9,11 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.template.st.StTemplateRenderer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -112,7 +114,7 @@ public class ChatClientServiceImpl implements ChatClientService{
 //    Structure Output -----------------------------------------------------------------------------
 
     @Override
-    public PersonEntity chatWithStructureOutput(String query) {
+    public List<PersonEntity> chatWithStructureOutput(String query) {
 //        ChatResponse chatResponse = chatClient
 //                .prompt(query + " Under 20 words")
 //                .call()
@@ -120,17 +122,25 @@ public class ChatClientServiceImpl implements ChatClientService{
 //
 //        assert chatResponse != null;
 //        log.info(chatResponse
-//                .getMetadata()
+//                .getMetadata()  // ----> Get the mata-data
 //                .getUsage()
 //                .toString()
 //        );
 //
 //        return Objects.requireNonNull(chatResponse.getResult()).getOutput().getText();
 
-        var chatResponse = chatClient
+//        var chatResponse = chatClient
+//                .prompt(query)
+//                .call()
+//                .entity(PersonEntity.class);
+
+        List<PersonEntity> chatResponse = chatClient
                 .prompt(query)
                 .call()
-                .entity(PersonEntity.class);
+                .entity(
+                        new ParameterizedTypeReference<List<PersonEntity>>() {
+                        }
+                );
 
         return chatResponse;
 
