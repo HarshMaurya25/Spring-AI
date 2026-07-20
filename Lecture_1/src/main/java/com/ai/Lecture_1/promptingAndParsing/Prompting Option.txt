@@ -1,0 +1,8 @@
+We can globally set these property by using
+
+spring.ai.openai.chat.options.<option> =
+
+Property :
+1. Temperature : low temperature more consistence
+2. Model : You can provide the Model that we use
+3. Max token : maximum token we can use
