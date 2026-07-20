@@ -1,5 +1,7 @@
 package com.ai.Lecture_1.promptingAndParsing.service;
 
+import com.ai.Lecture_1.promptingAndParsing.entity.PersonEntity;
+
 public interface ChatClientService {
 
     String chat(String query);
@@ -8,6 +10,6 @@ public interface ChatClientService {
 
     String chatUsingResource(String query);
 
-    String chatWithStructureOutput(String query);
+    PersonEntity chatWithStructureOutput(String query);
 
 }

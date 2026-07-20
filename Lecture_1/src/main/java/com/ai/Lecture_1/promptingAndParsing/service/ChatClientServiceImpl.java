@@ -1,5 +1,6 @@
 package com.ai.Lecture_1.promptingAndParsing.service;
 
+import com.ai.Lecture_1.promptingAndParsing.entity.PersonEntity;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -108,21 +109,31 @@ public class ChatClientServiceImpl implements ChatClientService{
 //      3. User input – the actual request.
 //      4. Output format – how the answer should look.
 
+//    Structure Output -----------------------------------------------------------------------------
+
     @Override
-    public String chatWithStructureOutput(String query) {
-        ChatResponse chatResponse = chatClient
-                .prompt(query + " Under 20 words")
+    public PersonEntity chatWithStructureOutput(String query) {
+//        ChatResponse chatResponse = chatClient
+//                .prompt(query + " Under 20 words")
+//                .call()
+//                .chatResponse();
+//
+//        assert chatResponse != null;
+//        log.info(chatResponse
+//                .getMetadata()
+//                .getUsage()
+//                .toString()
+//        );
+//
+//        return Objects.requireNonNull(chatResponse.getResult()).getOutput().getText();
+
+        var chatResponse = chatClient
+                .prompt(query)
                 .call()
-                .chatResponse();
+                .entity(PersonEntity.class);
 
-        assert chatResponse != null;
-        log.info(chatResponse
-                .getMetadata()
-                .getUsage()
-                .toString()
-        );
+        return chatResponse;
 
-        return Objects.requireNonNull(chatResponse.getResult()).getOutput().getText();
     }
 
 }
