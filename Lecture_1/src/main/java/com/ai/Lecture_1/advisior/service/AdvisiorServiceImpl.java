@@ -21,8 +21,14 @@ public class AdvisiorServiceImpl implements AdvisiorService {
 
     public AdvisiorServiceImpl(ChatClient.Builder builder) {
 
+        SafeGuardAdvisor safeGuardAdvisor = SafeGuardAdvisor
+                .builder()
+                .sensitiveWords(List.of("game" , "games" , "pokemon" , "megas"))
+                .failureResponse("Unable to Response due to private policy")
+                .build();
+
         this.chatClient = builder
-                .defaultAdvisors(new SimpleLoggerAdvisor())
+                .defaultAdvisors(new SimpleLoggerAdvisor() , safeGuardAdvisor)
                 .build();
     }
 
