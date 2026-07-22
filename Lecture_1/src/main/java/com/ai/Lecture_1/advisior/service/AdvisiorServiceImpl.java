@@ -21,11 +21,15 @@ public class AdvisiorServiceImpl implements AdvisiorService {
 
     public AdvisiorServiceImpl(ChatClient.Builder builder) {
 
+//      SafeGuardAdvisor is a Spring AI advisor that checks a prompt against a safety policy before it reaches the language model.
+//      If the prompt is considered unsafe, it returns a failure response instead of calling the model.
         SafeGuardAdvisor safeGuardAdvisor = SafeGuardAdvisor
                 .builder()
                 .sensitiveWords(List.of("game" , "games" , "pokemon" , "megas"))
-                .failureResponse("Unable to Response due to private policy")
+                .failureResponse("Unable to Response due to private policy") // Message if sensitive word is found
                 .build();
+
+        // If massage is not set then it will use default message
 
         this.chatClient = builder
                 .defaultAdvisors(new SimpleLoggerAdvisor() , safeGuardAdvisor)
