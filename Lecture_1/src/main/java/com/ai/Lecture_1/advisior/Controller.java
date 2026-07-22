@@ -18,9 +18,10 @@ public class Controller {
 
     @GetMapping("/ask")
     public ResponseEntity<String> asking(
-            @RequestParam(value = "q") String query
+            @RequestParam(value = "q") String query,
+            @RequestParam(value = "id") String id
     ){
-        return ResponseEntity.ok(advisiorService.ask(query));
+        return ResponseEntity.ok(advisiorService.ask(query , id));
     }
 
 
