@@ -1,5 +1,6 @@
 package com.ai.Lecture_1.advisior.service;
 
+import com.ai.Lecture_1.advisior.custom.CustomAdvisorGiveToken;
 import lombok.AllArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -54,7 +55,8 @@ public class AdvisiorServiceImpl implements AdvisiorService {
         // If massage is not set then it will use default message
 
         this.chatClient = builder
-                .defaultAdvisors(new SimpleLoggerAdvisor() , safeGuardAdvisor , messageChatMemoryAdvisor)
+//                .defaultAdvisors(new SimpleLoggerAdvisor() , safeGuardAdvisor , messageChatMemoryAdvisor)
+                .defaultAdvisors(new CustomAdvisorGiveToken())
                 .build();
     }
 
